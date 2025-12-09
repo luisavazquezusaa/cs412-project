@@ -1,0 +1,16 @@
+<!-- dadjokes/show_picture.html 
+# File: show_picture.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 11/11/2025
+# Description: shows a single picture
+-->
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<main class="profile-page">
+    <h1>Image</h1>
+    <img class="single-picture" src="{{ picture.image_url }}" alt="">
+    <p><em>By {{ picture.author }}</em></p>
+    <p><small>Published on {{ picture.published }}</small></p>
+</main>
+{% endblock %}

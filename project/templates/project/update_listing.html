@@ -1,0 +1,59 @@
+<!-- File: update_listing.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/05/2025
+Description: Update an existing listing, view existing photos, and upload new ones.
+-->
+
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Update Listing</h1>
+
+<div class="form-card">
+
+    <!-- SHOW CURRENT PHOTOS -->
+    <h3>Current Photos</h3>
+    <div class="listing-photos">
+        {% for photo in form.instance.get_photos %}
+            <div class="photo-wrapper">
+                {% if photo.image_file %}
+                    <img class="listing-photo" src="{{ photo.image_file.url }}" alt="">
+                {% else %}
+                    <img class="listing-photo" src="{{ photo.image_url }}" alt="">
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No photos uploaded.</p>
+        {% endfor %}
+    </div>
+
+    <!-- UPDATE FORM -->
+    <form method="POST" enctype="multipart/form-data" class="form-stacked">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <h3>Add More Photos</h3>
+        <input type="file" name="image_files" multiple>
+
+        <div class="actions-row">
+            <button type="submit" class="primary-btn">Save Changes</button>
+            <a href="{% url 'listing' form.instance.pk %}" class="secondary-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<!-- Google Autocomplete for Address -->
+<script>
+function initAutocomplete() {
+    const input = document.getElementById("id_address");
+    if (!input) return;
+
+    new google.maps.places.Autocomplete(input, {
+        types: ["address"],
+        componentRestrictions: { country: "us" },
+    });
+}
+window.onload = initAutocomplete;
+</script>
+{% endblock %}
+

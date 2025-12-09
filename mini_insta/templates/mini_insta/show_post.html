@@ -1,0 +1,78 @@
+<!-- mini_insta /show_post.html 
+# File: show_post.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 09/30/2025
+# Description: individual post for the app mini_insta
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content%}
+
+<main>
+    <h1>{{ post.caption }}</h1>
+
+    <!-- Delete/Update Post Link -->
+    {% if request.user == post.profile.user %}
+        <a href="{% url 'delete_post' post.pk %}">
+            <img src="{% static 'images/delete_icon.png' %}" alt="Delete Post" width="200">
+        </a>
+        <a href="{% url 'update_post' post.pk %}">
+            <img src="{% static 'images/update_icon.png' %}" alt="Update Post" width="200">
+        </a>
+    {% endif %}
+
+    <div>
+        <!-- Show all photos for this post -->
+        {% for photo in post.get_all_photos %}
+            {% if photo.image_file %}
+                <img src="{{ photo.image_file.url }}" alt="Post image">
+            {% elif photo.image_url %}
+                <img src="{{ photo.image_url }}" alt="Post image">
+            {% else %}
+                <!-- if no photos available, show No Image -->
+                <img src="{% static 'images/no_image.png' %}" alt="No image available">
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+        <!-- Like/Unlike button visible only for authenticated users other than the owner -->
+        {% if request.user.is_authenticated and request.user != post.profile.user %}
+            {% if is_liked %}
+                <!-- If post already liked by the logged-in user -->
+                <form action="{% url 'unlike_post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Unlike</button>
+                </form>
+            {% else %}
+                <!-- If post not liked yet by the logged-in user -->
+                <form action="{% url 'like_post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Like ❤️</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        <!-- Display likes and count of likes -->
+        {% if post.get_num_likes == 1 %}
+            Liked by <strong>@{{ post.get_likes.0.profile.username }}</strong>
+        {% elif post.get_num_likes > 1 %}
+            Liked by <strong>@{{ post.get_likes.0.profile.username }}</strong> and <strong>{{ post.get_num_likes|add:"-1" }}</strong> others
+        {% else %}
+            No one has liked this post
+        {% endif %}
+
+        <br>
+
+        <!--Display comments after the photos-->
+        {% for comment in post.get_all_comments %}
+            <br>{{ comment }}
+        {% endfor %}
+    </div>
+
+    <p>Posted on {{ post.timestamp }}</p>
+</main>
+
+{% endblock %}
+

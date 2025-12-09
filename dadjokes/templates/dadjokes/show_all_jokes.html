@@ -1,0 +1,26 @@
+<!-- 
+# File: show_all_jokes.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 11/11/2025
+# Description: page with all Jokes (no images)
+-->
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<h1>All Jokes</h1>
+
+<main class="grid-container">
+    {% for joke in jokes %}
+        <article class="post-card">
+            <a href="{% url 'show_joke' joke.pk %}">
+                <h3>{{ joke.joke }}</h3>
+            </a>
+            <p><em>— {{ joke.author }}</em></p>
+            <p><small>{{ joke.published }}</small></p>
+        </article>
+    {% empty %}
+        <p>No jokes have been added yet.</p>
+    {% endfor %}
+</main>
+{% endblock %}
+

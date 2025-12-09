@@ -1,0 +1,15 @@
+<!-- mini_insta /logged_out.html
+# File: logged_out.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/24/2025
+# Description: Confirmation page for logout 
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<main>
+    <h2>You have been suceddfully logged out.</h2>
+    <hr>
+    <a href="{% url 'login' %}">Log in </a>
+</main>
+{% endblock %}s

@@ -1,0 +1,445 @@
+/* ----------------------------------------------------
+   File: styles_project.css
+   Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/2025
+   Description: Airbnb-inspired modern UI styling for
+                the TerrierBnB subletting marketplace.
+-----------------------------------------------------*/
+
+/* ---------- GLOBAL RESET ---------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background: #fafafa;
+    color: #333;
+    padding-bottom: 80px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 12px;
+}
+
+
+/* ---------- HEADER ---------- */
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 34px;
+    background: white;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 650;
+    color: #FF385C;
+}
+
+.main-nav a,
+.auth-nav a {
+    margin: 0 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+.main-nav a:hover,
+.auth-nav a:hover {
+    color: #FF385C;
+}
+
+.auth-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logged-in-text {
+    font-size: 14px;
+    color: #555;
+}
+
+.logout-form {
+    display: inline-block;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+}
+.link-button:hover {
+    color: #FF385C;
+}
+
+
+/* ---------- BUTTONS ---------- */
+
+.primary-btn {
+    background: #FF385C;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+.primary-btn:hover {
+    background: #e03051;
+}
+
+.secondary-btn {
+    background: #eee;
+    color: #333;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.secondary-btn:hover {
+    background: #ddd;
+}
+
+.danger-btn {
+    background: #C81D25;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+.danger-btn:hover {
+    background: #a4171f;
+}
+
+.small {
+    padding: 8px 14px;
+    font-size: 14px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+
+/* ---------- LAYOUT ---------- */
+
+.page-content {
+    max-width: 1180px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+
+/* ---------- SEARCH FILTER / AIRBNB PILL ---------- */
+
+.filter-form {
+    background: white;
+    padding: 12px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    border-radius: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    align-items: center;
+    margin-bottom: 34px;
+}
+
+.filter-row {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.filter-row input,
+.filter-row select {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+.search-pill-btn {
+    background: #FF385C;
+    border: none;
+    font-size: 20px;
+    padding: 14px 18px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* ---------- GRID & CARDS ---------- */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 28px;
+}
+
+.card {
+    background: white;
+    padding: 14px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 26px rgba(0,0,0,0.10);
+}
+
+.card-img-wrapper img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.price {
+    font-weight: 600;
+    color: #FF385C;
+}
+
+.card-sub {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* ---------- PROFILE CARD ---------- */
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+
+.placeholder-avatar {
+    width: 90px;
+    height: 90px;
+    background: #ddd;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 34px;
+    color: #666;
+    font-weight: 600;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.muted {
+    color: #777;
+}
+
+
+/* ---------- ROLE PILL ---------- */
+
+.role-pill {
+    display: inline-block;
+    background: #FF385C;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 13px;
+    margin: 10px 0;
+}
+
+
+/* ---------- MAPS ---------- */
+
+.map-container {
+    width: 100%;
+    height: 350px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+}
+
+.map-flex-wrapper {
+    display: flex;
+    gap: 30px;
+}
+
+.map-left {
+    flex: 1;
+}
+
+.map-right {
+    flex: 1;
+}
+
+
+/* ---------- LISTING PAGE ---------- */
+
+.listing-title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.listing-subinfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.area-pill {
+    background: #FF385C;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.listing-photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.listing-photo {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+.section-heading {
+    font-size: 24px;
+    margin: 30px 0 10px;
+}
+
+
+/* ---------- FORMS ---------- */
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+.form-stacked input,
+.form-stacked textarea,
+.form-stacked select {
+    width: 100%;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+.actions-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+
+/* ---------- INTEREST REQUESTS ---------- */
+
+.interest-request-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+
+/* ---------- AUTH PAGES ---------- */
+
+.auth-card {
+    background: white;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+}
+
+.auth-switch {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.divider {
+    text-align: center;
+    margin: 18px 0;
+    position: relative;
+    color: #777;
+}
+
+.divider span {
+    background: white;
+    padding: 0 10px;
+}
+
+.divider:before {
+    content: "";
+    display: block;
+    height: 1px;
+    background: #eee;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.google-btn img {
+    height: 47px;
+}
+
+
+/* ---------- MOBILE RESPONSIVE ---------- */
+
+@media (max-width: 860px) {
+    .map-flex-wrapper {
+        flex-direction: column;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+}

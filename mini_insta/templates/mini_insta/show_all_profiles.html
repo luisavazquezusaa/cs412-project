@@ -1,0 +1,50 @@
+<!-- mini_insta /show_all_profiles.html 
+# File: show_all_profiles.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 09/25/2025
+# Description: all profiles for the app mini_insta
+-->
+
+{% extends 'mini_insta/base.html'%}
+
+{% block content %}
+<h1>Profiles</h1>
+
+<!-- <nav>
+    <ul>
+        <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+        I put the navegation link on top as it makes more sense, and on the footer per the instrucitons.
+    </ul>
+</nav> -->
+
+<!-- displays a QuerySet of all profiles-->
+<!-- {{profiles}}-->
+
+<main class="grid-container">
+    <!-- scriptlet code for a loop -->
+    {% for profile in profiles %}
+    <article>
+        <div> 
+            <h2>{{profile.username}}</h2>
+            <h3>by {{profile.display_name}}</h3>
+
+            <!-- <p>
+                {{profile.bio_text}} 
+            </p> -->
+        </div>
+        
+        <!-- Code to link profile to image when clicked -->
+        <a href = "{% url 'profile' profile.pk %}">  
+        {% if profile.profile_image_url %}
+            <img src="{{profile.profile_image_url}}" alt=""> 
+        {% elif profile.profile_image_file %}
+            <img src="{{profile.profile_image_file.url}}" alt=""> <!-- code to to display the image from file-->
+        {% else %}
+            <h3>No Image</h3>
+        {% endif %}
+        </a>
+
+    </article> 
+    {% endfor %}
+</main>
+
+{% endblock %} 

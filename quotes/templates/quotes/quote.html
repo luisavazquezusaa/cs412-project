@@ -1,0 +1,14 @@
+<!-- quotes/templates/quotes/home.html --> 
+{% extends 'quotes/base.html'%}
+
+    {% block content%}
+    <h1>Cardi B Quote Of The Day</h1> 
+
+    <blockquote>
+        {{ quote }}
+    </blockquote>
+
+    <img src="{{ image }}" width="400">
+
+    
+    {% endblock %}

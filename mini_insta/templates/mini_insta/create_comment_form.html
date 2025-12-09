@@ -1,0 +1,23 @@
+
+<!-- Display the HTML form to create new Comment on a Profile object-->
+{% extends 'mini_insta/base.html' %}
+{% block content %}
+
+<h1>Create a new Profile about {{profile.username}}</h1>
+
+<!-- Display HTML forms-->
+<form action="{% url 'create_comment'%}" method = "POST">
+    {% csrf_token %}
+    <table> 
+    {{form.as_table}}
+    </table>
+
+    <input type="submit" name="submit" values="Submit">
+</form>
+
+<form action = "{% url 'post' post.pk% }" method = "GET">
+    <input type="submit" value="Cancel">
+
+</form>
+
+{% endblock %}

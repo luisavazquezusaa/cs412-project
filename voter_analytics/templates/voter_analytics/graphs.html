@@ -1,0 +1,30 @@
+<!-- voter_analytics/base.html 
+# File: graphs.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 11/01/2025
+# Description: graphs displaying different insights of the voters data
+-->
+
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+<div class="container">
+  <h2>Graphs for voter data</h2>
+
+  <!-- histogram -->
+  <div class="row">
+    <h3>Voter distribution by year of birth</h3>
+    {{ graph_div_birth|safe }}
+  </div>
+
+  <!-- pie chart -->
+  <div class="row">
+    <h3>Voter Distribution by Party Affiliation</h3>
+    {{ graph_div_party|safe }}
+  </div>
+
+  <!-- bar chart -->
+  <div class="row">
+    <h3>Voter Participation by Election</h3>
+    {{ graph_div_elections|safe }}
+  </div>
+</div>
+{% endblock %}

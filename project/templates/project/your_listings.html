@@ -1,0 +1,31 @@
+<!-- File: your_listings.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/06/2025
+Description: Shows all listings created by the logged-in user, with links to manage each listing.
+-->
+
+<!-- project/your_listings.html -->
+{% extends "project/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Your Listings</h1>
+
+<!-- information about the listing for each listing-->
+<div class="grid-container">
+    {% for listing in listings %}
+        <article class="card">
+            <a href="{% url 'listing' listing.pk %}" class="card-link">
+                <h3>{{ listing.title }}</h3>
+                <p class="price">${{ listing.price_per_month }} / month</p>
+                <p class="card-sub">{{ listing.get_area_display }}</p>
+            </a>
+
+            <a href="{% url 'manage_interest_requests' listing.pk %}" class="primary-btn small">
+                Manage Requests
+            </a>
+        </article>
+    {% empty %}
+        <p>You have no listings yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

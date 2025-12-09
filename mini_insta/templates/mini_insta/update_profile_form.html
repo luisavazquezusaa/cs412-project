@@ -1,0 +1,45 @@
+<!-- mini_insta /update_profile_form.html
+# File: update_profile_form.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/09/2025
+# Description: display the HTML form to update a Post
+-->
+
+    {% extends 'mini_insta/base.html' %}
+    {% load static %}
+    
+    {% block content %}
+    <h2>Update a Profile</h2>
+    
+    <form method = 'POST' enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <!-- Diplay fields from form for Profile-->
+        <table>
+        {% for field in form %}
+        <tr>
+            <th>{{field.name}}</th>
+            <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+             <!-- Form to submit/cancel request -->
+            <td>
+                <button type="submit" name="update_profile" class="update-btn" 
+                style="border:none; background:none; cursor:pointer;">
+                <img src="{% static 'images/update_icon.png' %}" 
+                    alt="Update" 
+                    class="icon"
+                    style="width:100px; height:auto; display:inline-block; object-fit:contain;">
+                </button>
+                <a href="{{ form.instance.get_absolute_url }}" class="cancel-btn">
+                    <img src="{% static 'images/cancel_icon.png' %}" alt="Cancel" class="icon" style="width:100px; height:auto; display:inline-block; object-fit:contain;">  
+                </a>
+                
+
+            </td>
+        </tr>
+        </table>
+    </form>
+    
+    {% endblock %}

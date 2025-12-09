@@ -1,0 +1,44 @@
+
+<!-- mini_insta /delete_post_form.html
+# File: delete_post_form.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/09/2025
+# Description: display the HTML form to delete a Post
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>Are you sure you want to delete this post?</h3>
+
+<main>
+    <h1>{{ post.caption }}</h1>
+
+    <div>
+        <!-- Show all photos for this post -->
+        {% for photo in post.get_all_photos %}
+            {% if photo.get_image_url %}
+                <img src="{{ photo.get_image_url }}" alt="Post image" width="300">
+            {% else %}
+                <img src="{% static 'images/no_image.png' %}" alt="No image available" width="300">
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <h3>Posted on {{ post.timestamp }}</h3>
+</main>
+
+<!-- Form to submit the delet request -->
+<form method="POST">
+    {% csrf_token %}
+    <input type="image" src="{% static 'images/delete_icon.png' %}" alt="Delete" width="100">
+</form>
+
+<!-- Form to cancel delete -->
+<form action="{% url 'profile' post.profile.pk %}" method="get">
+    <a href="{% url 'profile' post.profile.pk %}">
+        <img src="{% static 'images/cancel_icon.png' %}" alt="Cancel" width="100">
+    </a>
+</form>
+
+{% endblock %}

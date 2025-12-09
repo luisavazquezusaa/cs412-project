@@ -1,0 +1,23 @@
+<!-- File: create_profile.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/02/2025
+Description: Template for creating a user profile in the subletting marketplace.
+-->
+
+<!-- project/create_profile_form.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Create Your Profile</h1>
+
+<!-- form to create profile-->
+<div class="form-card">
+    <form method="POST" enctype="multipart/form-data" class="form-stacked">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="primary-btn full-width">Create Profile</button>
+    </form>
+</div>
+
+{% endblock %}

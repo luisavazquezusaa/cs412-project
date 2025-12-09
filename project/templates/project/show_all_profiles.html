@@ -1,0 +1,49 @@
+<!-- File: show_all_profiles.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/02/2025
+Description: Displays all user profiles.
+-->
+
+<!-- project/show_all_profiles.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Profiles</h1>
+
+
+
+<!-- profile cards -->
+<div class="grid-container">
+    {% for profile in profiles %}
+        <article class="card profile-card">
+            <a href="{% url 'userprofile' profile.pk %}" class="card-link">
+                <!-- profile image -->
+                {% if profile.get_image_url %}
+                    <img src="{{ profile.get_image_url }}" class="avatar" alt="Profile picture of {{ profile.display_name }}">
+                {% else %}
+                    <div class="avatar placeholder-avatar">{{ profile.display_name|first }}</div>
+                {% endif %}
+            
+
+                <!-- display name and username -->
+                <h2>{{ profile.display_name }}</h2>
+                <p class="muted">@{{ profile.user.username }}</p>
+
+                <!-- role -->
+                <p class="role-pill">
+                    {% if profile.role == 'host' %}
+                        Host
+                    {% elif profile.role == 'subletter' %}
+                        Subletter
+                    {% else %}
+                        Host &amp; Subletter
+                    {% endif %}
+                </p>
+            </a>
+        </article>
+    {% empty %}
+        <!-- when no profiles exist -->
+        <p>No profiles yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

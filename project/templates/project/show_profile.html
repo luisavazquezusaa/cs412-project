@@ -1,0 +1,88 @@
+<!-- File: show_profile.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/03/2025
+Description: Displays a user's profile information, listings (if host), and interest requests (only to the logged-in user if they are a subletter).
+-->
+
+<!-- project/show_profile.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- profile header section -->
+<section class="profile-header">
+    <div>
+        <!-- profile info -->
+        <h1>{{ profile.display_name }}</h1>
+        <h3 class="muted">@{{ profile.user.username }}</h3>
+
+        <p class="role-pill">
+            {% if profile.role == 'host' %}
+                Host
+            {% elif profile.role == 'subletter' %}
+                Subletter
+            {% else %}
+                Host &amp; Subletter
+            {% endif %}
+        </p>
+
+        <!-- Bio -->
+        <p>{{ profile.bio }}</p>
+        <p class="muted">Joined {{ profile.user.date_joined|date:"F Y" }}</p>
+    </div>
+
+    <!-- picture -->
+    {% if profile.image %}
+        <img src="{{ profile.image.url }}" class="profile-pic" alt="Profile picture of {{ profile.display_name }}">
+    {% endif %}
+</section>
+
+<hr>
+<!-- HOST SECTION: show listings if the user is a host or both -->
+{% if profile.role == "host" or profile.role == "both" %}
+    <h2 class="section-heading">Listings by {{ profile.display_name }}</h2>
+
+    <div class="grid-container">
+        {% for listing in profile.listing_set.all %}
+            <article class="card">
+                <a href="{% url 'listing' listing.pk %}" class="card-link">
+                    <h3>{{ listing.title }}</h3>
+                    <p class="price">${{ listing.price_per_month }} / month</p>
+                    <p class="card-sub">{{ listing.get_area_display }}</p>
+                    <p class="card-sub">Roommates (total): {{ listing.number_of_roommates }}</p>
+                </a>
+            </article>
+        {% empty %}
+            <p>No listings yet.</p>
+        {% endfor %}
+    </div>
+    <hr>
+{% endif %}
+
+
+<!-- SUBLETTER SECTION (restricted):
+     Show interest requests only if:
+     1. The profile belongs to a subletter (or both)
+     2. The logged-in user is viewing their own profile -->
+{% if request.user.is_authenticated and request.user == profile.user %}
+    {% if profile.role == "subletter" or profile.role == "both" %}
+        <h2 class="section-heading">Your Interest Requests</h2>
+
+        <div class="grid-container">
+            {% for req in submitted_interest_requests %}
+                <article class="card">
+                    <a href="{% url 'listing' req.listing.pk %}" class="card-link">
+                        <h3>{{ req.listing.title }}</h3>
+                        <p class="card-sub">{{ req.listing.get_area_display }}</p>
+                    </a>
+
+                    <p><strong>Status:</strong> {{ req.get_status_display }}</p>
+                    <p><strong>Your message:</strong> {{ req.message }}</p>
+                </article>
+            {% empty %}
+                <p>You haven't sent any interest requests yet.</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}
+
+{% endblock %}

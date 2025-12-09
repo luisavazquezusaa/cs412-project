@@ -1,0 +1,34 @@
+<!-- File: manage_interest_requests.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/03/2025
+Description: Page for hosts to view and update interest requests submitted for their listing.
+-->
+
+<!-- project/manage_interest_requests.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Manage Requests for: {{ listing.title }}</h1>
+
+{% for req in interest_requests %}
+    <div class="interest-request-card">
+        <h3>{{ req.requester.display_name }}</h3>
+
+        <p>{{ req.message }}</p>
+        <p><strong>Status:</strong> {{ req.get_status_display }}</p>
+        <p><strong>Email:</strong> {{ req.requester.email }}</p>
+        <p><strong>Phone:</strong> {{ req.requester.phone }}</p>
+
+        <form method="POST" action="{% url 'update_interest_request_status' req.pk %}">
+            {% csrf_token %}
+            {{ status_form.as_p }}
+            <button type="submit" class="primary-btn">Update</button>
+        </form>        
+
+    </div>
+{% empty %}
+    <p>No interest requests yet.</p>
+{% endfor %}
+
+
+{% endblock %}

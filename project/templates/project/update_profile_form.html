@@ -1,0 +1,26 @@
+<!-- File: update_profile_form.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/05/2025
+Description: Form for users to update their profile information.
+-->
+
+<!-- project/update_profile_form.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Update Profile</h1>
+
+<!-- form to update the profile -->
+<div class="form-card">
+    <form method="POST" enctype="multipart/form-data" class="form-stacked">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="actions-row">
+            <button type="submit" class="primary-btn">Update Profile</button>
+            <a href="{% url 'userprofile' form.instance.pk %}" class="secondary-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

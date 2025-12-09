@@ -1,0 +1,24 @@
+<!-- restaurant/templates/restaurant/main.html 
+# File: main.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 09/19/2025
+# Description: main page for the app restaurant-->
+
+{% extends 'restaurant/base.html'%}
+
+{% load static %} 
+
+{% block content %}
+
+
+    <img src="{% static 'images/el_changarro.png' %}" alt="El Changarrito Logo" width="700">
+
+   <p><strong>Welcome to El Changarrito!</strong> Please enjoy your meal!</p> <br>
+   <p>Located at Boston University, CDS B62</p>
+
+   <h2>Hours of Operation</h2>
+        <ul>
+            <li>Sunday – Wednesday: 11:00 AM – 10:00 PM</li>
+            <li> Friday - Saturday: 12:00 PM – 1:00 AM</li>
+        </ul>
+
+{% endblock %}

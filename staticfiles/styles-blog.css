@@ -1,0 +1,526 @@
+/* This CSS was derived from NetNinja's multi-column grid example. */
+
+body {
+    margin: 30px;
+    /*background: #d1dedd; */
+    background: #f8b6c3; /*Changed it to pink*/
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ul, li {
+    padding: 0px;
+    list-style-type: none;
+}
+
+h1, h2, h3 {
+    color: #767f7e;
+}
+
+p {
+    color: #828b82;
+}
+
+header {
+    max-width: 1200px;
+    margin: 40px auto;
+    border-bottom: 1px solid #bbc7c7;
+}
+.grid-container {
+    background: #eee;
+    max-width: 900px;
+    display: grid;
+    /* grid-template-columns: 300px 300px 300px; */
+    /*grid-template-columns: repeat(3, 1fr); */ 
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /*d looked better */
+    gap: 20px;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+article.featured {
+    grid-column: span 3;
+    display: grid; /* nested grid */
+    gap: 60px;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    border-bottom: 1px #bbc7c7;
+    padding-bottom: 40px;
+}
+
+article img, article.featured img {
+    width: 100%;
+    border: 4px solid #fff;
+    border-radius: 8px;
+}
+article p, article h3 {
+    margin: 20px 10px;
+
+}
+
+nav li {
+    display: inline;
+}
+/* responsive styles: adapt to smaller screen sizes */
+@media screen and (max-width: 980px) {
+
+    article {
+        grid-column: span 3;
+        display: grid; /* nested grid */
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 760px) {
+
+    article, article.featured {
+        
+        display: block; 
+        margin: 0px 20px;
+    }
+}
+
+/* .grid-container article {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 15px;
+    transition: transform 0.2s ease-in-out;
+} */
+
+
+
+/* Added the following code to the style sheet*/ 
+
+
+.grid-container article img {
+    width: 100%;
+    height: 220px;          
+    object-fit: cover;       
+    object-position: top;    
+    border-radius: 8px 8px 0 0;
+    display: block;
+
+    background-color: #fff;  
+    border: 4px solid #fff;  
+}
+
+.grid-container article h2 {
+    margin: 10px 0 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.grid-container article h3 {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.grid-container article:hover {
+    transform: translateY(-5px);
+}
+
+/* class created for the show_profile */
+article.profile-detail img {
+    width: 100%;            
+    height: auto;           
+    object-fit: contain;    
+    object-position: center;
+    border-radius: 12px;    
+    max-width: 1200px;      
+    margin: 0;              
+    display: block;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px auto 40px;
+    max-width: 1000px;
+}
+
+.profile-pic {
+    width: 200px;        
+    height: auto;        
+    object-fit: contain; 
+    border-radius: 0;  
+    border: 4px solid #fff;
+    display: block;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #333;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+
+.posts-grid {
+    margin-top: 20px;
+}
+
+/* Individual post card */
+.post-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    overflow: hidden;   
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.post-card img {
+    width: 100%;         
+    max-width: 350px;    
+    max-height: 250px;   
+    object-fit: contain; 
+    display: block;
+    margin: 0 auto;    
+}
+
+
+.post-card h2 {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.post-card .timestamp {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+}
+
+
+.profile-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.stat-box {
+    background-color: #f9f9ff;
+    border: 1px solid #dcdcf0;
+    border-radius: 10px;
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+}
+
+.stat-box h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.stat-box p {
+    margin: 0;
+    color: #666;
+}
+
+/* CSS for followed and following  */
+
+.follow-page {
+    background-color: #ffc5ce;
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+    max-width: 700px;
+    margin: 2rem auto;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* header styling */
+.follow-header {
+    margin-bottom: 1.5rem;
+}
+
+.follow-header h2 {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 0.3rem;
+}
+
+.follow-header p {
+    font-size: 1.1rem;
+    color: #444;
+}
+
+/* list styling */
+.follow-list {
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    text-align: center;
+    position: relative;
+}
+
+.follow-list p {
+    margin: 0.6rem 0;
+}
+
+.follow-list a {
+    text-decoration: none;
+    color: #111;
+    transition: color 0.2s ease-in-out;
+}
+
+.follow-list a:hover {
+    color: #b8006a;
+}
+
+
+.back-icon-bottom {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+}
+
+.back-to-profile-icon {
+    width: 90px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.back-to-profile-icon:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 700px) {
+    .back-to-profile-icon {
+        width: 70px;
+    }
+
+    .follow-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .follow-list {
+        font-size: 1.1rem;
+    }
+}
+
+/* feeder page styling */
+
+.feed-page {
+    background-color: #ffe2e7;
+    padding: 2rem;
+    font-family: 'Helvetica', sans-serif;
+    max-width: 700px;
+    margin: 2rem auto;
+    border-radius: 15px;
+}
+
+.feed-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.feed-header h2 {
+    font-size: 2rem;
+    color: #222;
+}
+
+.feed-header h3 {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+
+.feed-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+.feed-post-card {
+    background-color: #ffc5ce;
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.6rem;
+}
+
+.tiny-profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+
+.post-user-info {
+    text-align: left;
+}
+
+.post-user-info strong {
+    font-size: 1.1rem;
+    color: #111;
+}
+
+.post-user-info span {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+
+.feed-post-image {
+    width: 300px;
+    max-width: 100%;
+    display: block;
+    margin: 0.5rem auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.post-caption {
+    text-align: center;
+    margin-top: 0.5rem;
+    color: #222;
+}
+
+.post-stats {
+    text-align: center;
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* css for search  */
+
+/* Search Page Styling */
+.search-page, .search-results-page {
+    background-color: #ffe2e7;
+    padding: 2rem;
+    font-family: 'Helvetica', sans-serif;
+    max-width: 700px;
+    margin: 2rem auto;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-box {
+    width: 70%;
+    padding: 0.6rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+}
+
+.search-btn {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #b8006a;
+    color: white;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #930056;
+}
+
+.search-section {
+    margin-top: 2rem;
+}
+
+.search-result-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #ffc5ce;
+    padding: 0.7rem;
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+}
+
+.grid-container .post-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+
+.grid-container .post-card p {
+    margin: 0.3rem 0;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.random-image {
+    width: 400px;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 0.8rem auto;
+    border-radius: 10px;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.random-image:hover {
+    transform: scale(1.02);
+}
+
+.single-picture {
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 10px;
+    border: 4px solid #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.single-picture:hover {
+    transform: scale(1.02);
+}
+
+@media (max-width: 600px) {
+    .random-image,
+    .single-picture {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+
+
+
+
+

@@ -1,0 +1,68 @@
+<!-- mini_insta/search_results.html
+# File: search_results.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/18/2025
+# Description: displays search results for profiles and posts in mini_insta
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="search-results-page">
+    <h2>Search Results for "{{ query }}"</h2>
+
+    <!-- back to search link -->
+    <a href="{% url 'search' %}">Back to search</a>
+
+    <!-- profiles  -->
+    <section class="search-section">
+        <h3>Matching Profiles</h3>
+        {% if profiles %}
+            {% for profile in profiles %}
+                <div class="search-result-card">
+                    <img src="{{ profile.profile_image_url }}" class="tiny-profile-pic">
+                    <div>
+                        <a href="{% url 'profile' profile.pk %}">
+                            <strong>@{{profile.username}}</strong> — {{profile.display_name}}
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No profiles match your search.</p>
+        {% endif %}
+    </section>
+
+    <!-- posts  -->
+    <section class="search-section">
+        <h3>Matching Posts</h3>
+
+        {% if posts %}
+            {% for post in posts %}
+                <article class="post-card">
+                    <a href="{% url 'post' post.pk %}">
+                        {% if post.get_all_photos %}
+                            {% if post.get_all_photos.0.image_file %}
+                                <img src="{{ post.get_all_photos.0.image_file.url }}" alt="Post image">
+                            {% elif post.get_all_photos.0.image_url %}
+                                <img src="{{ post.get_all_photos.0.image_url }}" alt="Post image">
+                            {% else %}
+                                <img src="{% static 'images/no_image.png' %}" alt="No image available">
+                            {% endif %}
+                        {% else %}
+                            <img src="{% static 'images/no_image.png' %}" alt="No image available">
+                        {% endif %}
+                    </a>
+
+                    <h4>{{ post.caption }}</h4>
+                    <p><em>Posted at {{ post.timestamp }}</em></p>
+                </article>
+            {% endfor %}
+        {% else %}
+            <p>No posts match your search.</p>
+        {% endif %}
+    </section>
+
+
+</main>
+{% endblock %}

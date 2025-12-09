@@ -1,0 +1,7 @@
+User: test1
+For the profile: itzrisa
+Password: MinaCata2004
+
+User: Yasomaso
+Profile: Yasomaso
+Password: MinaCata2004

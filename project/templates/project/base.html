@@ -1,0 +1,65 @@
+<!-- File: base.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/02/2025
+Description: Base template that loads Google Maps and provides the main layout for the subletting marketplace.
+-->
+
+<!-- project/base.html -->
+{% load static %}
+
+<!-- Load Google Maps API using the key from the context processor -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&libraries=places"></script>
+
+<html>
+<head>
+    <title>Subletting Marketplace</title>
+
+    <!-- stylesheet for the project -->
+    <link rel="stylesheet" href="{% static 'styles_project.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<header class="site-header">
+    <div class="logo">TerrierBnB</div>
+
+    <!-- Navigation for public-facing pages -->
+    <nav class="main-nav">
+        <a href="{% url 'show_all_listings' %}">Listings</a>
+        <a href="{% url 'show_all_profiles' %}?role=host">Hosts</a>
+        <a href="{% url 'show_all_profiles' %}?role=subletter">Subletters</a>
+    </nav>
+
+    <div class="auth-nav">
+        {% if request.user.is_authenticated %}
+            <!-- Show when user is logged in -->
+            <span class="logged-in-text">Logged in as {{ request.user }}</span>
+
+            <!-- Quick actions for authenticated users -->
+            <a href="{% url 'create_listing' %}" class="primary-btn small">Post a Listing</a>
+            <a href="{% url 'update_profile' %}" class="secondary-btn small">Update Profile</a>
+
+            <!-- Subletter-specific navigation -->
+            {% if request.user.userprofile.role == 'subletter' or request.user.userprofile.role == 'both' %}
+                <a href="{% url 'my_interest_requests' %}" class="text-link">Interest Requests</a>
+            {% endif %}
+
+            <!-- Logout button -->
+            <form action="{% url 'logout' %}" method="POST" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="link-button">Logout</button>
+            </form>
+        {% else %}
+            <!-- Display when user is NOT logged in -->
+            <a href="{% url 'login' %}" class="text-link">Login</a>
+            <a href="{% url 'register' %}" class="primary-btn small">Sign up</a>
+        {% endif %}
+    </div>
+</header>
+
+<main class="page-content">
+    {% block content %}
+    {% endblock %}
+</main>
+</body>
+</html>

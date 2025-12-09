@@ -1,0 +1,26 @@
+<!-- mini_insta/create_profile_form.html
+# File: create_profile_form.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/25/2025
+# Description: Handles registration for user
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h1>Create a New Account</h1>
+
+<form action="{% url 'create_profile' %}" method="POST">
+    {% csrf_token %}
+
+    <h2>User Details</h2>
+    {{ user_form.as_p }}
+
+    <hr>
+
+    <h2>Profile Details</h2>
+    {{ form.as_p }}
+
+    <input type="submit" value="Create Account">
+</form>
+
+{% endblock %}

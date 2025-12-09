@@ -1,0 +1,17 @@
+<!-- quotes/templates/quotes/home.html --> 
+{% extends 'quotes/base.html'%}
+
+    {% block content %}
+    <h1>All Cardi B Quotes & Images</h1>
+
+    <h2>Quotes</h2>
+    {% for q in quotes %}
+    <p>{{ q }}</p>
+    {% endfor %}
+
+    <h2>Images</h2>
+    {% for img in images %}
+    <p><img src="{{ img }}" width="300"></p>
+    {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,24 @@
+<!-- dadjokes/random.html 
+# File: random.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 11/11/2025
+# Description: home page for dadjokes app, displays a radom joke and picture. 
+-->
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<main class="grid-container">
+    <section>
+        <h2>Dad Joke</h2>
+        <p>{{ joke.joke }}</p>
+        <p><em>— {{ joke.author }}</em></p>
+        <p><small>Published on {{ joke.published }}</small></p>
+    </section>
+
+    <section>
+        <img class="random-image" src="{{ picture.image_url }}" alt="Funny Picture">
+        <p><em>— {{ picture.author }}</em></p>
+        <p><small>Published on {{ picture.published }}</small></p>
+    </section>
+</main>
+{% endblock %}

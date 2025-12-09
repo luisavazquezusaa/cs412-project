@@ -1,0 +1,23 @@
+<!-- quotes/templates/quotes/home.html --> 
+{% load static%}
+<html>
+    <head>
+        <title>Cardi B</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}"> 
+    </head>
+    <body>
+        <nav> 
+            <li><a href="{% url 'quote_page' %}">Quote</a></li>
+            <li><a href="{% url 'about_page' %}">About</a></li>
+            <li><a href="{% url 'show_all' %}">Show All</a></li>
+
+        </nav>
+        <!-- Put page specific content here-->
+        {% block content %} 
+        {% endblock %}
+        <footer>
+            This page was brough to you by Luisa V.U. {{number}}.
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<!-- File: my_interest_requests.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/09/2025
+Description: Shows all interest requests submitted by the logged-in subletter.
+-->
+
+<!-- project/my_interest_requests.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>My Interest Requests</h1>
+
+<p class="muted">
+    These are the listings you've contacted hosts about.
+</p>
+
+<div class="grid-container">
+    {% for req in requests %}
+        <article class="card">
+            <!-- listing info -->
+            <a href="{% url 'listing' req.listing.pk %}" class="card-link">
+                <h3>{{ req.listing.title }}</h3>
+                <p class="card-sub">{{ req.listing.get_area_display }}</p>
+            </a>
+
+            <!-- status and message -->
+            <p><strong>Status:</strong> {{ req.get_status_display }}</p>
+            <p><strong>Your message:</strong> {{ req.message }}</p>
+
+            <p class="muted">
+                Sent on {{ req.timestamp|date:"M d, Y H:i" }}
+            </p>
+        </article>
+    {% empty %}
+        <p>You haven't submitted any interest requests yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

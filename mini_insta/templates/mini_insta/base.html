@@ -1,0 +1,64 @@
+<!-- mini_insta /base.html 
+# File: base.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 09/25/2025
+# Description: base for the app mini_insta
+-->
+{% load static%}
+
+<html> 
+    <head>
+        <title>Our Mini_Insta</title>
+        <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
+    </head>
+
+    <body>
+        <head>
+            <h1>Insta</h1>
+
+        </head>
+
+        {% block content%}
+        {% endblock%}
+    </body>
+
+<nav>
+    <ul>
+        <!-- Urls for users who are not logged in-->
+        <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+
+        <!-- urls for logged in users only -->
+        {% if request.user.is_authenticated %}
+
+            <li><a href="{% url 'profile' request.user.profile_set.first.pk %}">My Profile</a></li>
+
+            <li>
+                <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="link-button">Logout</button>
+                </form>
+            </li>
+
+            <li><a href="{% url 'update_profile' %}">Update Profile</a></li>
+
+            <li><a href="{% url 'create_post' %}">Create Post</a></li>
+
+            <li><a href="{% url 'show_feed' %}">My Feed</a></li>
+
+            <li><a href="{% url 'search' %}">Search</a></li>
+
+        <!-- Urls for users who are not logged in-->        
+        {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'create_profile' %}">Register</a></li>
+        {% endif %}
+
+    </ul>
+    <hr>
+    {% if request.user.is_authenticated %}
+    Logged in as: {{request.user}}
+    {% else %}
+    Not logged in.
+    {% endif %}
+</nav>
+
+</html>

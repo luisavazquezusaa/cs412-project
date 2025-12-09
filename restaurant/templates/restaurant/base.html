@@ -1,0 +1,30 @@
+<!-- restaurant/templates/restaurant/base.html
+# File: base.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 09/19/2025
+# Description: base for the app restaurant -->
+
+
+{% load static %}
+
+<html>
+    <head>
+        <title>restaurant</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+
+    <h1> El Changarrito </h1> 
+
+    
+    <body>
+
+        <nav> 
+            <li><a href="{% url 'main' %}">Main Page</a></li>
+            <li><a href="{% url 'order_page' %}">Order</a></li>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+
+</html>

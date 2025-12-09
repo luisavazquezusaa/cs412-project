@@ -1,0 +1,46 @@
+<!-- mini_insta/show_following.html 
+# File: show_following.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/14/2025
+# Description: shows who the profile is following (subscriptions) for the app mini_insta
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="follow-page">
+    <!-- using classes to delegate styling to css -->
+
+    <section class="follow-header">
+        <h2>{{ profile.username }} is following</h2>
+        <p>Total Following: {{ num_following }}</p>
+    </section>
+
+    <!-- list of followed users -->
+    <section class="follow-list">
+        {% if following_profiles %}
+            {% for followed in following_profiles %}
+                <p>
+                    <a href="{% url 'profile' followed.pk %}">
+                        <strong>@{{ followed.username }}</strong>
+                        <span>({{ followed.display_name }})</span>
+                    </a>
+                </p>
+            {% endfor %}
+        {% else %}
+            <!-- in case they don't follow anyone -->
+            <p>This profile isn’t following anyone yet.</p>
+        {% endif %}
+
+        <!-- back to profile icon -->
+        <div style="text-align: left; margin-top: 20px;">
+            <a href="{% url 'profile' profile.pk %}">
+                <img src="{% static 'images/back_to_profile_icon.png' %}" alt="Back to Profile" width="100">
+            </a>
+        </div>
+    </section>
+</main>
+
+{% endblock %}
+

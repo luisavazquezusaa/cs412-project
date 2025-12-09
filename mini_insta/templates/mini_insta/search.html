@@ -1,0 +1,19 @@
+<!-- mini_insta/search.html
+# File: search.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/17/2025
+# Description: Search form for Profiles and Posts in the  mini_insta app
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="search-page">
+    <h2>Search</h2>
+
+    <form method="get" action="{% url 'search' %}">
+        <input type="text" name="q" class="search-box" required>
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+</main>
+{% endblock %}

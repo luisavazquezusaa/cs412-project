@@ -1,0 +1,16 @@
+<!-- dadjokes/show_joke.html 
+# File: show_joke.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 11/11/2025
+# Description: shows a single jokes
+-->
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<main class="profile-page">
+    <h1>Dad Joke</h1>
+    <p>{{ joke.joke }}</p>
+    <p><em>By {{ joke.author }}</em></p>
+    <p><small>Published on {{ joke.published }}</small></p>
+</main>
+{% endblock %}

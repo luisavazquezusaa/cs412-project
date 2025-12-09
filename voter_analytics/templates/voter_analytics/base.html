@@ -1,0 +1,24 @@
+<!-- voter_analytics/base.html 
+# File: base.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/29/2025
+# Description: base for voter_analytics
+-->
+
+{% load static %}
+<html>
+  <head>
+    <title>Voter Analytics</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+  </head>
+  <body>
+      <nav>
+        <ul>
+          <li><a href="{% url 'voters' %}">All Voters</a></li>
+          <li><a href="{% url 'graphs' %}">Graphs</a></li> 
+        </ul>
+      </nav>
+
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

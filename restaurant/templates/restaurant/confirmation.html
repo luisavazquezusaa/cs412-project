@@ -1,0 +1,42 @@
+<!-- restaurant/templates/restaurant/confirmation.html 
+# File: confirmation.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 09/19/2025
+# Description: confrimation page for the order-->
+
+{% extends 'restaurant/base.html'%}
+
+{% block content %}
+
+<div>
+
+    <h2>
+        Your Order has been Confirmed! 
+    </h2> <br> 
+
+    <h3>
+        Your order will be ready at {{order_time}}
+    </h3>
+
+    <p><strong>Order:</strong></p>
+
+        <ul>
+            {% for item in order %}
+            <li>{{item}} </li>
+            {% endfor %}
+        </ul>
+
+    <p><strong>Total:</strong></p>
+
+        <p>${{ total }}</p>
+
+    <p><strong>Special requests:</strong></p> 
+
+        <p>{{ special_request }}</p>
+
+        <br>
+        
+    <p> Thank you {{name}}! We will text you at {{phone }} and send you and email to {{email}} when your order is ready!</p>
+        
+</div>
+
+{% endblock %}

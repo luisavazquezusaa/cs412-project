@@ -1,0 +1,32 @@
+<!-- File: register.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/05/2025
+Description: Registration page for creating a new user account with email/password or Google OAuth.
+-->
+
+<!-- project/register.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Create Account</h1>
+
+<div class="auth-card">
+    <!-- Django registration form -->
+    <form method="POST" class="form-stacked">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="primary-btn full-width">Register</button>
+    </form>
+
+    <div class="divider">
+        <span>OR</span>
+    </div>
+
+    <!-- Google login alternative -->
+    <div class="centered">
+        <a href="/accounts/google/login/" class="google-btn">
+            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Sign up with Google">
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+ <!-- mini_insta/login.html
+# File: login.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/21/2025
+# Description: handless login for users in the mini_insta
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h1>Login to your Insta</h1>
+<form action="{% url 'login' %}" method="POST"> 
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Login" >
+
+     <!-- This basic login form works, but after login in
+     assumed the existance of a page at /registration/profile, which
+     does not exist.  -->
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}" >
+    {% else %}
+    <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+    {% endif %}
+
+</form>
+
+<hr>
+Don't have an account?
+<a href="{% url 'register' %}">Register here</a>.
+
+{% endblock %}

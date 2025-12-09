@@ -1,0 +1,123 @@
+<!-- File: show_listing.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/03/2025
+Description: Displays full details for a single listing, including photos, map location, and interest request actions.
+-->
+
+<!-- project/show_listing.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="listing-container">
+    <!-- title and basic info -->
+    <h1 class="listing-title">{{ listing.title }}</h1>
+
+    <div class="listing-subinfo">
+        <span class="area-pill">{{ listing.get_area_display }}</span>
+        <span class="sub-info">Roommates: {{ listing.number_of_roommates|default:"N/A" }}</span>
+        <span class="sub-info">Price: ${{ listing.price_per_month }} / month</span>
+    </div>
+
+    <!-- photo gallery -->
+    <div class="listing-photos">
+        {% for photo in listing.get_photos %}
+            <div class="photo-wrapper">
+                {% if photo.image_file %}
+                    <img class="listing-photo" src="{{ photo.image_file.url }}" alt="">
+                {% else %}
+                    <img class="listing-photo" src="{{ photo.image_url }}" alt="">
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No photos uploaded.</p>
+        {% endfor %}
+    </div>
+
+    <!-- map section -->
+    <h2 class="section-heading">Location</h2>
+    <div id="singleMap" class="map-container"></div>
+
+    <script>
+        /* initialize map for a single listing */
+        function initSingleMap() {
+            const lat = {{ listing.latitude|default:"null" }};
+            const lng = {{ listing.longitude|default:"null" }};
+
+            /* if listing has no coordinates, show message */
+            if (!lat || !lng) {
+                document.getElementById("singleMap").innerHTML =
+                    "<p style='padding:20px;'>Location unavailable.</p>";
+                return;
+            }
+
+            const center = { lat: lat, lng: lng };
+
+            /* create the map */
+            const map = new google.maps.Map(document.getElementById("singleMap"), {
+                zoom: 15,
+                center: center,
+            });
+
+            /* add a marker at the listing location */
+            new google.maps.Marker({
+                position: center,
+                map: map,
+                title: "{{ listing.title|escapejs }}",
+            });
+        }
+
+        /* load map on page load */
+        window.onload = initSingleMap;
+    </script>
+
+    <hr>
+
+    <!-- listing description -->
+    <div class="listing-description">
+        <h2 class="section-heading">About this place</h2>
+        <p>{{ listing.description }}</p>
+    </div>
+</div>
+
+<hr>
+
+<!-- User logic -->
+{% if request.user.is_authenticated %}
+    {% if listing.lister.user == request.user %}
+        <!-- Logged-in host viewing their own listing -->
+        <div class="actions-row">
+            <a href="{% url 'manage_interest_requests' listing.pk %}" class="primary-btn">
+                Manage Interest Requests
+            </a>
+        </div>
+
+        <h2 class="section-heading">Manage Your Listing</h2>
+        <div class="actions-row">
+            <a href="{% url 'update_listing' listing.pk %}" class="secondary-btn">Update Listing</a>
+
+            <!-- delete listing -->
+            <form action="{% url 'delete_listing' listing.pk %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="danger-btn">Delete Listing</button>
+            </form>
+        </div>
+
+
+        {% else %}
+        <!-- Logged-in user interested in the listing -->
+        <h2 class="section-heading">I'm Interested!</h2>
+
+        <form method="POST" action="{% url 'create_interest_request' listing.pk %}" class="form-stacked">
+            {% csrf_token %}
+            {{ interest_form.as_p }}
+            <button type="submit" class="primary-btn">Submit Interest</button>
+        </form>
+    {% endif %}
+{% else %}
+    <!-- Not logged in -->
+    <p><a href="{% url 'login' %}">Log in</a> to contact the host.</p>
+{% endif %}
+
+
+{% endblock %}
+

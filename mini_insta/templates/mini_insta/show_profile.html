@@ -1,0 +1,103 @@
+<!-- mini_insta /show_profiles.html 
+# File: show_profiles.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 09/25/2025
+# Description: individual profile for the app mini_insta
+-->
+
+{% extends 'mini_insta/base.html'%}
+{% load static %}
+
+{% block content %}
+
+<main class="profile-page">
+    <!-- created a new class so that my user interface looked cute -->
+    <section class="profile-header"> 
+        <div> 
+            <h1>{{ profile.username }}</h1>
+            <h3>by {{ profile.display_name }}</h3>
+            <h3>{{ profile.bio_text }}</h3>
+
+            <p>Joined {{ profile.join_date }}</p>
+
+            <div>
+                <!-- Only show buttons if the user is logged in -->
+                {% if request.user.is_authenticated %}
+                    <!-- If this is the logged-in user's own profile -->
+                    {% if request.user == profile.user %}
+                        <a href="{% url 'update_profile' %}">
+                            <button type="button">Update Profile</button>
+                        </a>
+
+                    <!-- Otherwise, show follow/unfollow buttons -->
+                    {% else %}
+                        {% if is_followed %}
+                            <!-- If the logged-in user is already following this profile -->
+                            <form action="{% url 'unfollow_profile' profile.pk %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit">Unfollow</button>
+                            </form>
+                        {% else %}
+                            <!-- If the logged-in user is not following this profile -->
+                            <form action="{% url 'follow_profile' profile.pk %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit">Follow</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <!-- display the followers/followed -->
+            <div class="profile-stats">
+                <a href="{% url 'show_followers' profile.pk %}">
+                    <div class="stat-box">
+                        <h2>{{ profile.get_num_followers }}</h2>
+                        <p>followers</p>
+                    </div>
+                </a>
+
+                <a href="{% url 'show_following' profile.pk %}">
+                    <div class="stat-box">
+                        <h2>{{ profile.get_num_following }}</h2>
+                        <p>following</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Display the profile image -->
+        <img src="{{ profile.profile_image_url }}" alt="Profile image" class="profile-pic">
+
+    </section>
+
+    <section class="grid-container posts-grid">
+        <!-- Display the posts about this profile --> 
+        {% for post in profile.get_all_posts %}
+            <h4>{{ post.caption }}</h4>
+
+            <article class="post-card">
+                {% if post.get_all_photos %}
+                    <!-- Show only the first photo -->
+                    <a href="{% url 'post' post.pk %}">
+                        {% if post.get_all_photos.0.image_file %}
+                            <img src="{{ post.get_all_photos.0.image_file.url }}" alt="Post image">
+                        {% elif post.get_all_photos.0.image_url %}
+                            <img src="{{ post.get_all_photos.0.image_url }}" alt="Post image">
+                        {% else %}
+                            <img src="{% static 'images/no_image.png' %}" alt="No image available">
+                        {% endif %}
+                    </a>
+                    <p><em>Posted at {{ post.timestamp }}</em></p>
+                {% else %}
+                    <!-- If no photo, show placeholder -->
+                    <a href="{% url 'post' post.pk %}">
+                        <img src="{% static 'images/no_image.png' %}" alt="No image available">
+                    </a>
+                    <p><em>Posted at {{ post.timestamp }}</em></p>
+                {% endif %}
+            </article>
+        {% endfor %}
+    </section>
+</main>
+
+{% endblock %}

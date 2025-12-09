@@ -1,0 +1,41 @@
+<!-- restaurant/templates/restaurant/order.html 
+# File: order.html
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 09/19/2025
+# Description: order page for the app restaurant-->
+{% extends 'restaurant/base.html'%}
+
+{% block content %}
+    <h2>Place your order</h2>
+
+    <h3>Menu</h3>
+
+    <form action="{% url 'submit' %}" method = "POST"> 
+
+        {% csrf_token %}
+
+        Tacos $10.5:
+        <div style="margin-left:20px;"> 
+            Carnitas <input type="checkbox" name="Carnitas" >
+            Chicken <input type="checkbox" name="Chicken">
+        </div>
+        Burrrito $12 <input type="checkbox" name="Burrito">  <br>
+        Quesadilla $11<input type="checkbox" name="Quesadilla"> <br>
+        Bowl $13<input type="checkbox" name="Bowl">
+ 
+        <h3>Today's Special!</h3>
+
+            {{Special}} $12 <input type="checkbox" name="Special">
+
+        <h3>Special Request</h3>
+    
+            <input type="text" name="special_request">
+
+        <h3>Contact Information</h3>
+
+            Name: <input type="text" name = "name">
+            Phone: <input type="text" name = "phone">
+            Email: <input type="text" name = "email">
+     
+    <input type="submit">
+
+{% endblock %}

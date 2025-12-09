@@ -1,0 +1,26 @@
+<!-- dadjokes/show_all_pictures.html
+# File: show_all_pictures.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 11/11/2025
+# Description: page with all images
+-->
+
+{% extends "dadjokes/base.html" %}
+
+{% block content %}
+<h1>All Images</h1>
+
+<main class="grid-container">
+    {% for picture in pictures %}
+        <article class="post-card">
+            <a href="{% url 'show_picture' picture.pk %}">
+                <img src="{{ picture.image_url }}" alt="">
+            </a>
+            <p><em>— {{ picture.author }}</em></p>
+            <p><small>{{ picture.published }}</small></p>
+        </article>
+    {% empty %}
+        <p>No images have been added yet.</p>
+    {% endfor %}
+</main>
+{% endblock %}
+

@@ -1,0 +1,146 @@
+<!-- File: show_all_listings.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/02/2025
+Description: Page for browsing all listings with filters and a Google Map showing listing locations.
+-->
+
+<!-- project/show_all_listings.html -->
+{% extends 'project/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>Find a Sublet</h1>
+
+<!-- filter bar styled like an Airbnb search pill -->
+<form method="GET" class="filter-form">
+    <div class="filter-row">
+        <label>Min Price</label>
+        <input type="number" name="min_price" value="{{ min_price }}" placeholder="Any">
+    </div>
+
+    <div class="filter-row">
+        <label>Max Price</label>
+        <input type="number" name="max_price" value="{{ max_price }}" placeholder="Any">
+    </div>
+
+    <div class="filter-row">
+        <label>Start Before</label>
+        <input type="date" name="start_date" value="{{ start_date }}">
+    </div>
+
+    <div class="filter-row">
+        <label>End After</label>
+        <input type="date" name="end_date" value="{{ end_date }}">
+    </div>
+
+    <div class="filter-row">
+        <label>Area</label>
+        <select name="area">
+            <option value="">Any</option>
+            {% for group_label, group in area_choices_grouped %}
+                <optgroup label="{{ group_label }}">
+                    {% for value, label in group %}
+                        <option value="{{ value }}" {% if value == area_selected %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="search-pill-btn">
+        🔍
+    </button>
+</form>
+
+<!-- map and listings side by side -->
+<div class="map-flex-wrapper">
+    <!-- left side map -->
+    <div id="listingsMap" class="map-left map-container"></div>
+
+    <!-- right side listings -->
+    <div class="map-right">
+        <div class="grid-container">
+            {% for listing in listings %}
+                <article class="card">
+                    <a class="card-link" href="{% url 'listing' listing.pk %}">
+                        <!-- listing image -->
+                        <div class="card-img-wrapper">
+                            {% with photos=listing.get_photos %}
+                                {% if photos %}
+                                    {% with first_photo=photos.0 %}
+                                        {% if first_photo.image_file %}
+                                            <img src="{{ first_photo.image_file.url }}" alt="Listing photo">
+                                        {% else %}
+                                            <img src="{{ first_photo.image_url }}" alt="Listing photo">
+                                        {% endif %}
+                                    {% endwith %}
+                                {% else %}
+                                    <img src="{% static 'project/default.jpg' %}" alt="No photo">
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+
+                        <!-- listing details -->
+                        <div class="card-body">
+                            <h3 class="card-title">{{ listing.title }}</h3>
+                            <p class="price">
+                                ${{ listing.price_per_month }}
+                                <span>/ month</span>
+                            </p>
+                            <p class="card-sub">{{ listing.get_area_display }}</p>
+                            <p class="card-sub">Roommates: {{ listing.number_of_roommates }}</p>
+                        </div>
+                    </a>
+                </article>
+            {% empty %}
+                <p>No listings found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- map script -->
+<script>
+    function initListingsMap() {
+        // create the map centered near BU
+        const map = new google.maps.Map(document.getElementById("listingsMap"), {
+            center: { lat: 42.3505, lng: -71.1054 },
+            zoom: 13,
+        });
+
+        // array to store all listing markers
+        const mapListings = [];
+
+        // push each listing with coords into the array
+        {% for listing in listings %}
+            {% if listing.latitude and listing.longitude %}
+                mapListings.push({
+                    title: "{{ listing.title|escapejs }}",
+                    lat: {{ listing.latitude|floatformat:"6" }},
+                    lng: {{ listing.longitude|floatformat:"6" }},
+                    url: "{% url 'listing' listing.pk %}"
+                });
+            {% endif %}
+        {% endfor %}
+
+        // render markers for each listing
+        mapListings.forEach((item) => {
+            const marker = new google.maps.Marker({
+                position: { lat: item.lat, lng: item.lng },
+                map: map,
+                title: item.title,
+            });
+
+            // when clicking a marker, open the listing page
+            marker.addListener("click", () => {
+                window.location.href = item.url;
+            });
+        });
+    }
+
+    // run the map function when page loads
+    window.onload = initListingsMap;
+</script>
+{% endblock %}

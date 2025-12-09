@@ -1,0 +1,47 @@
+<!-- mini_insta/show_followers.html 
+# File: show_followers.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 10/14/2025
+# Description: shows who follows this profile (followers) for the app mini_insta
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="follow-page">
+    <!-- using classes to delegate styling to css -->
+
+    <section class="follow-header">
+        <h2>{{ profile.username }}'s Followers</h2>
+        <p>Total Followers: {{ num_followers }}</p>
+    </section>
+
+    <section class="follow-list">
+        {% if followers %}
+            {% for follower in followers %}
+                <p>
+                    <a href="{% url 'profile' follower.pk %}">
+                        <strong>@{{ follower.username }}</strong>
+                        <span>({{ follower.display_name }})</span>
+                    </a>
+                </p>
+            {% endfor %}
+        {% else %}
+            <!-- in case they don't have followers -->
+            <p>This profile doesn't have any followers yet.</p>
+        {% endif %}
+
+        <!-- back to profile icon -->
+        <div style="text-align: left; margin-top: 20px;">
+            <a href="{% url 'profile' profile.pk %}">
+                <img src="{% static 'images/back_to_profile_icon.png' %}" alt="Back to Profile" width="100">
+            </a>
+        </div>
+
+    </section>
+</main>
+
+{% endblock %}
+
+

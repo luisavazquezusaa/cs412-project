@@ -1,0 +1,26 @@
+<!-- File: delete_listing_form.html
+Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 12/04/2025
+Description: Template for confirming and submitting the deletion of a listing.
+-->
+
+<!-- project/delete_listing_form.html -->
+
+{% extends 'project/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Are you sure you want to delete this listing?</h2>
+
+<div class="warning-box">
+    <h3>{{ listing.title }}</h3>
+    <p>${{ listing.price_per_month }} / month</p>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="danger-btn">Delete Listing</button>
+</form>
+
+<a href="{% url 'listing' listing.pk %}" class="secondary-btn">Cancel</a>
+
+{% endblock %}

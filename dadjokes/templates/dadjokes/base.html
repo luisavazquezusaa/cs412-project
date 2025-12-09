@@ -1,0 +1,31 @@
+<!-- dadjokes/base.html 
+# File: base.html 
+# Author: Luisa Vazquez Usabiaga (lvu@bu.edu), 11/11/2025
+# Description: base for the app dadjokes
+-->
+
+{% load static %}
+<html> 
+    <head>
+        <title>Dad Jokes</title>
+        <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
+    </head>
+
+    <body>
+        <header>
+            <h1>Dad Jokes</h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="{% url 'random' %}">Random</a></li>
+                <li><a href="{% url 'show_all_jokes' %}">All Jokes</a></li>
+                <li><a href="{% url 'show_all_pictures' %}">All Pictures</a></li>
+            </ul>
+        </nav>
+        <hr>
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
