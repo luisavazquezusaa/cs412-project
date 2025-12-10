@@ -33,6 +33,9 @@ urlpatterns = [
     path("voter_analytics/", include ("voter_analytics.urls")),
     path("dadjokes/", include ("dadjokes.urls")),
     path("project/", include ("project.urls")),
+    #to see if it deploys
+    path("lvu/project/", include("project.urls")),
+
 
 ] 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
