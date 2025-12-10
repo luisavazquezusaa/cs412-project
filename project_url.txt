@@ -1,0 +1,5 @@
+https://cs-webapps.bu.edu/lvu/project/
+
+when deploying it I got: Internal Server Error. Maybe its because of the API and Google Sign in that I wasnt able to.
+
+http://127.0.0.1:8000/project/ --> link from local server

@@ -66,7 +66,6 @@ class Listing(models.Model):
     """
     Represents a sublet posted by a host.
 
-    Stores:
     - Title, description, price
     - Address + geocoded latitude/longitude for Google Maps markers
     - Area (West Campus, Mid, Fenway, Allston…)

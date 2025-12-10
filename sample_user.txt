@@ -5,3 +5,7 @@ Password: MinaCata2004
 Host
 Username: yasomaso2
 Password: MinaCata2004
+
+
+When deploying it I got: Internal Server Error. Maybe its because of the API and Google Sign In that I wasnt able to.
+http://127.0.0.1:8000/project/ --> link from local server

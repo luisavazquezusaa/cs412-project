@@ -340,8 +340,8 @@ class SubletterListView(ListView):
 def update_interest_request_status(request, pk):
     """
     Updates host decision on an interest request.
-    - If ACCEPTED → delete listing + all its interest requests
-    - If DECLINED → delete only this request
+    - If accepter: delete listing + all its interest requests
+    - If declined: delete only this request
     """
     req = get_object_or_404(InterestRequest, pk=pk)
     listing = req.listing
