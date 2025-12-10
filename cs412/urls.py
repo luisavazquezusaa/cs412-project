@@ -34,9 +34,6 @@ urlpatterns = [
     path("dadjokes/", include ("dadjokes.urls")),
     path("project/", include("project.urls")),
 
-
-
-
 ] 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
